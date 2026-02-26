@@ -55,26 +55,29 @@ def detalles():
     return render_template("detalles.html", alumn=alumn1)
 
 
-@app.route("/modificar", methods=['GET', 'POST'])
+@app.route("/modificar", methods=['GET','POST'])
 def modificar():
-    create_form = forms.UserForm(request.form)
-    if request.method == 'GET':
-        id = request.args.get('id')
-        alumn1 = db.session.query(Alumnos).filter(Alumnos.id==id).first()
-        create_form.id = request.args.get('id')
-        create_form.nombre = alumn1.nombre
-        create_form.aPaterno = alumn1.aPaterno
-        create_form.email = alumn1.email
-    if request.method=='POST':
-         id = create_form.id.data
-         alumn1 = db.session.query(Alumnos).filter(Alumnos.id==id).first()
-         alumn1.id=id
-         alumn1.nombre=str.rstrip(create_form.nombre.data)
-         alumn1.aPaterno=create_form.aPaterno.data
-         db.session.add(alumn1)
-         db.session.commit()
-         return redirect(url_for('index'))
-    return render_template("modificar.html", nombre = nombre, aPaterno = aPaterno, email = email)
+	create_form=forms.UserForm(request.form)
+	if request.method == 'GET':
+		id = request.args.get('id')
+		alumn=db.session.query(Alumnos).filter(Alumnos.id==id).first()
+		create_form.id.data=request.args.get('id')
+		create_form.nombre.data=alumn.nombre
+		create_form.apellidos.data=alumn.apellidos
+		create_form.email.data=alumn.email
+		create_form.telefono.data=alumn.telefono
+	if request.method=='POST':
+		id=create_form.id.data
+		alumn=db.session.query(Alumnos).filter(Alumnos.id==id).first()
+		alumn.id=id
+		alumn.nombre=str.rstrip(create_form.nombre.data)
+		alumn.apellidos=create_form.apellidos.data
+		alumn.email=create_form.email.data
+		alumn.telefono=create_form.telefono.data
+		db.session.add(alumn)
+		db.session.commit()
+		return redirect(url_for('index'))
+	return render_template("modificar.html",form=create_form)
 
 
 @app.route("/eliminar", methods=['GET', 'POST'])
@@ -86,8 +89,9 @@ def eliminar():
         
         create_form.id.data = request.args.get('id')
         create_form.nombre.data = alumn1.nombre
-        create_form.aPaterno.data = alumn1.aPaterno
+        create_form.apellidos.data = alumn1.apellidos
         create_form.email.data = alumn1.email
+        create_form.telefono.data = alumn1.telefono
         
     if request.method == 'POST': 
          id = create_form.id.data

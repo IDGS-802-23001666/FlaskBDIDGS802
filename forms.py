@@ -13,11 +13,15 @@ class UserForm(Form):
         validators.Length(min=3, max=50, message="El nombre debe tener entre 3 y 50 caracteres")
     ])
     
-    aPaterno = StringField("Apellido Paterno", [
+    apellidos = StringField("Apellido Paterno", [
         validators.DataRequired(message="El campo es requerido"),
     ])
     
     email = EmailField("Correo", [
+        validators.DataRequired(message="El campo es requerido"),
+        validators.Email(message="Ingrese un correo válido"),
+    ])
+    telefono = EmailField("Correo", [
         validators.DataRequired(message="El campo es requerido"),
         validators.Email(message="Ingrese un correo válido"),
     ])
