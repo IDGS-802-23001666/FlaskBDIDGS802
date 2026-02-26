@@ -1,0 +1,43 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+{% import "_macros.html" as macro %}
+
+<div class="max-w-md mx-auto bg-neutral-primary-soft p-6 rounded-base border border-default shadow-sm">
+    <h2 class="text-xl font-bold mb-6 text-heading">Eliminar</h2>
+    
+    <form action="" method="post" novalidate>
+        {{form.csrf_token}}
+        <input type = "hidden" name = "csrf_token" value = "{{csrf_token()}}">
+        
+        <div class="relative z-0 w-full mb-5 group">
+            {{ macro.campoNuevo(form.id, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer") }}
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+            {{ macro.campoNuevo(form.nombre, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer") }}
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+            {{ macro.campoNuevo(form.aPaterno, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer") }}
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+            {{ macro.campoNuevo(form.email, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer") }}
+        </div>
+
+        <button type="submit" 
+                class="w-full text-white bg-brand hover:bg-brand-dark focus:ring-4 focus:outline-none focus:ring-brand-light font-medium rounded-base text-sm px-5 py-2.5 text-center transition-colors">
+            Eliminar
+        </button>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('index') }}" class="text-sm text-body hover:text-brand underline">
+                Volver a la lista
+            </a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}
