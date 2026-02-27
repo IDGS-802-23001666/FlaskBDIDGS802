@@ -1,0 +1,58 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+{% import "_macros.html" as macro %}
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg border border-gray-200">
+    <div class="p-4 bg-green-600 rounded-t-lg">
+        <a href="{{ url_for('maestros.maestros') }}" class="flex items-center text-white font-medium w-fit hover:opacity-80 transition-opacity">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
+            </svg>
+            Nuevo Maestro
+        </a>
+    </div>
+
+    <div class="relative overflow-x-auto bg-neutral-primary-soft shadow-xs rounded-base border border-default">
+        <table class="w-full text-sm text-left rtl:text-right text-body">
+            <thead class="text-sm text-body bg-neutral-secondary-soft border-b rounded-base border-default">
+                <tr>
+                    <th scope="col" class="px-6 py-3 font-medium">ID</th>
+                    <th scope="col" class="px-6 py-3 font-medium">Nombre</th>
+                    <th scope="col" class="px-6 py-3 font-medium">Apellidos</th>
+                    <th scope="col" class="px-6 py-3 font-medium">Email</th>
+                    <th scope="col" class="px-6 py-3 font-medium">Especialidad</th>
+                    <th scope="col" class="px-6 py-3 font-medium text-center">Editar</th>
+                    <th scope="col" class="px-6 py-3 font-medium text-center">Detalles</th>
+                    <th scope="col" class="px-6 py-3 font-medium text-center">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for m in mae %}
+                <tr class="bg-white border-b border-default hover:bg-gray-50">
+                    <td class="px-6 py-4 font-medium">{{ m.matricula }}</td> 
+                    <td class="px-6 py-4">{{ m.nombre }}</td>
+                    <td class="px-6 py-4">{{ m.apellidos }}</td>
+                    <td class="px-6 py-4">{{ m.email }}</td>
+                    <td class="px-6 py-4">{{ m.especialidad }}</td>
+                    
+                    <td class="px-6 py-4 text-center">
+                        <a href="{{ url_for('maestros.modificarMae', matricula=m.matricula) }}" class="text-blue-600">Editar</a>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <a href="{{ url_for('maestros.detallesMae', matricula=m.matricula) }}" class="text-green-600 hover:underline">Ver</a>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <a href="{{ url_for('maestros.eliminarMae', matricula=m.matricula) }}" class="text-red-600 hover:underline">Eliminar</a>
+                    </td>
+                    
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

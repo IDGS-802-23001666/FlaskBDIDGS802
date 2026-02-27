@@ -4,12 +4,14 @@ from wtforms.validators import email
 from flask import Flask, render_template, request, redirect, url_for, flash, g
 from flask_wtf.csrf import CSRFProtect
 from config import DevelopmentConfig
+from maestros.routes import maestros_bp
 import forms
 from models import db, Alumnos
 from flask_migrate import Migrate, migrate 
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
+app.register_blueprint(maestros_bp)
 db.init_app(app)
 csrf = CSRFProtect()
 migrate = Migrate(app,db)
@@ -30,8 +32,9 @@ def alumnos():
     if request.method == 'POST':
         alumn = Alumnos(
             nombre=create_form.nombre.data,
-            aPaterno=create_form.aPaterno.data,
-            email=create_form.email.data
+            apellidos=create_form.aPaterno.data,
+            email=create_form.email.data,
+            telefono=create_form.email.data
         )
         db.session.add(alumn)
         db.session.commit()     
