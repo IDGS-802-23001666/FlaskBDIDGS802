@@ -1,0 +1,25 @@
+{% extends "layout.html" %}
+{% block container %}
+{% import "_macros.html" as macro %}
+
+<div class="max-w-md mx-auto bg-white p-6 rounded-lg shadow-md border border-gray-200">
+    <h2 class="text-xl font-bold mb-6 text-gray-900">Inscribir Alumno a Curso</h2>
+    
+    <form action="{{ url_for('cursos.inscribir') }}" method="post" novalidate>
+        {{ form.csrf_token }}
+        <input type = "hidden" name = "csrf_token" value = "{{csrf_token()}}">
+        
+        <div class="mb-5">
+            {{ macro.campoNuevo(form.alumno_id, class="block w-full text-sm text-gray-900 border-gray-300 rounded-lg") }}
+        </div>
+
+        <div class="mb-5">
+            {{ macro.campoNuevo(form.curso_id, class="block w-full text-sm text-gray-900 border-gray-300 rounded-lg") }}
+        </div>
+
+        <button type="submit" class="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5">
+            Confirmar Inscripción
+        </button>
+    </form>
+</div>
+{% endblock %}

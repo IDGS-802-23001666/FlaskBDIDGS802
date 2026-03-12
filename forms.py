@@ -1,10 +1,9 @@
-from wtforms import Form, StringField, IntegerField, EmailField, validators
+from wtforms import Form, StringField, IntegerField, EmailField, SelectField, TextAreaField, validators
+from wtforms import Form, SelectField, validators
 
 class UserForm(Form):
-    # 'id' en el modelo es 'matricula' en tu lógica visual
     id = IntegerField('Matricula', [
         validators.DataRequired(message="El campo es requerido"),
-        # Ajusté el rango para que sea más flexible como una ID de BD
         validators.NumberRange(min=1, max=999999, message="Ingrese una matrícula válida"),
     ])
     
@@ -13,7 +12,7 @@ class UserForm(Form):
         validators.Length(min=3, max=50, message="El nombre debe tener entre 3 y 50 caracteres")
     ])
     
-    apellidos = StringField("Apellido Paterno", [
+    apellidos = StringField("Apellidos", [
         validators.DataRequired(message="El campo es requerido"),
     ])
     
@@ -21,15 +20,15 @@ class UserForm(Form):
         validators.DataRequired(message="El campo es requerido"),
         validators.Email(message="Ingrese un correo válido"),
     ])
-    telefono = EmailField("Correo", [
+
+    # Corregido: StringField en lugar de EmailField
+    telefono = StringField("Teléfono", [
         validators.DataRequired(message="El campo es requerido"),
-        validators.Email(message="Ingrese un correo válido"),
     ])
 
 class UserForm2(Form):
     matricula = IntegerField('Matricula', [
         validators.DataRequired(message="El campo es requerido"),
-        # Ajusté el rango para que sea más flexible como una ID de BD
         validators.NumberRange(min=1, max=999999, message="Ingrese una matrícula válida"),
     ])
     
@@ -38,7 +37,7 @@ class UserForm2(Form):
         validators.Length(min=3, max=50, message="El nombre debe tener entre 3 y 50 caracteres")
     ])
     
-    apellidos = StringField("Apellido Paterno", [
+    apellidos = StringField("Apellidos", [
         validators.DataRequired(message="El campo es requerido"),
     ])
     
@@ -46,7 +45,39 @@ class UserForm2(Form):
         validators.DataRequired(message="El campo es requerido"),
         validators.Email(message="Ingrese un correo válido"),
     ])
-    especialidad = EmailField("Especialidad", [
+
+    # Corregido: StringField para especialidad
+    especialidad = StringField("Especialidad", [
         validators.DataRequired(message="El campo es requerido"),
-        validators.Email(message="Ingrese un correo válido"),
     ])
+
+class CursoForm(Form):
+    id = IntegerField('ID Curso', [
+        validators.DataRequired(message="El campo es requerido"),
+    ])
+    
+    nombre = StringField("Nombre del Curso", [
+        validators.DataRequired(message="El campo es requerido"),
+        validators.Length(min=3, max=150, message="El nombre debe tener entre 3 y 150 caracteres") 
+    ])
+    
+    # Usamos TextAreaField para descripciones largas
+    descripcion = TextAreaField("Descripción", [
+        validators.DataRequired(message="El campo es requerido"),
+    ])
+
+    # SelectField para elegir al maestro por su matrícula
+    maestro_id = SelectField('Maestro Asignado', coerce=int, validators=[
+        validators.DataRequired(message="Debe asignar un maestro")
+    ])
+
+class InscripcionForm(Form):
+    # SelectFields para vincular registros existentes
+    alumno_id = SelectField('Alumno', coerce=int, validators=[
+        validators.DataRequired(message="Seleccione un alumno")
+    ])
+    
+    curso_id = SelectField('Curso', coerce=int, validators=[
+        validators.DataRequired(message="Seleccione un curso")
+    ])
+

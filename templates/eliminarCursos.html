@@ -1,0 +1,47 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+{% import "_macros.html" as macro %}
+
+<div class="max-w-md mx-auto bg-neutral-primary-soft p-6 rounded-base border border-default shadow-sm">
+    <h2 class="text-xl font-bold mb-6 text-heading">Eliminar Curso</h2>
+    
+    <div class="mb-4 p-4 bg-red-50 border-l-4 border-red-500 text-red-700">
+        <p class="text-sm font-bold">¿Estás seguro de que deseas eliminar este curso?</p>
+        <p class="text-xs">Esta acción no se puede deshacer.</p>
+    </div>
+
+    <form action="{{ url_for('cursos.eliminar', id=curso.id) }}" method="post" novalidate>
+        {{form.csrf_token}}
+        <input type = "hidden" name = "csrf_token" value = "{{csrf_token()}}">
+        
+        <div class="relative z-0 w-full mb-5 group">
+            <label class="block text-xs font-medium text-gray-500">ID del Curso</label>
+            {{ macro.campoNuevo(form.id, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer", readonly=True) }}
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+            <label class="block text-xs font-medium text-gray-500">Nombre del Curso</label>
+            {{ macro.campoNuevo(form.nombre, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer", readonly=True) }}
+        </div>
+
+        <div class="relative z-0 w-full mb-5 group">
+            <label class="block text-xs font-medium text-gray-500">Descripción</label>
+            {{ macro.campoNuevo(form.descripcion, class="block py-2.5 px-0 w-full text-sm text-heading bg-transparent border-0 border-b-2 border-default-medium appearance-none focus:outline-none focus:ring-0 focus:border-brand peer", readonly=True) }}
+        </div>
+
+        <button type="submit" 
+                class="w-full text-white bg-red-600 hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-base text-sm px-5 py-2.5 text-center transition-colors">
+            Confirmar Eliminación
+        </button>
+        
+        <div class="text-center mt-4">
+            <a href="{{ url_for('cursos.index') }}" class="text-sm text-body hover:text-brand underline">
+                Cancelar y volver a la lista
+            </a>
+        </div>
+    </form>
+</div>
+
+{% endblock %}

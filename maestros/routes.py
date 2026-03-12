@@ -8,7 +8,6 @@ maestros_bp = Blueprint('maestros', __name__)
 
 
 
-@maestros_bp.route("/", methods = ['GET', 'POST'])
 @maestros_bp.route("/indexMaestro")
 def index():
     create_form = forms.UserForm2(request.form)
@@ -48,35 +47,30 @@ def detallesMae():
 
 @maestros_bp.route("/modificarMae", methods=['GET','POST'])
 def modificarMae():
-    # Usamos UserForm2 que es el de maestros
+    # Buscamos la matrícula en la URL o en el formulario enviado
+    matricula = request.args.get('matricula') or request.form.get('matricula')
+    mae = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
+    
+    if not mae:
+        return redirect(url_for('maestros.index'))
+
+    # Inicializamos el formulario con los datos recibidos
     create_form = forms.UserForm2(request.form)
     
+    if request.method == 'POST' and create_form.validate():
+        # Actualizamos directamente la instancia 'mae'
+        mae.nombre = create_form.nombre.data
+        mae.apellidos = create_form.apellidos.data
+        mae.email = create_form.email.data
+        mae.especialidad = create_form.especialidad.data
+        
+        # SQLAlchemy detecta el cambio en el objeto existente y hace un UPDATE
+        db.session.commit()
+        return redirect(url_for('maestros.index'))
+    
+    # Si es GET, cargamos los datos actuales en el formulario
     if request.method == 'GET':
-        matricula = request.args.get('matricula')
-        mae = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
-        
-        if mae:
-            create_form.matricula.data = mae.matricula
-            create_form.nombre.data = mae.nombre
-            create_form.apellidos.data = mae.apellidos
-            create_form.email.data = mae.email
-            create_form.especialidad.data = mae.especialidad
-        else:
-            return redirect(url_for('maestros.index'))
-
-    if request.method == 'POST':
-        matricula = create_form.matricula.data
-        mae = db.session.query(Maestros).filter(Maestros.matricula == matricula).first()
-        
-        if mae:
-            mae.nombre = create_form.nombre.data
-            mae.apellidos = create_form.apellidos.data
-            mae.email = create_form.email.data
-            mae.especialidad = create_form.especialidad.data
-            
-            db.session.add(mae)
-            db.session.commit()
-            return redirect(url_for('maestros.index'))
+        create_form = forms.UserForm2(obj=mae)
             
     return render_template("modificarMae.html", form=create_form)
 

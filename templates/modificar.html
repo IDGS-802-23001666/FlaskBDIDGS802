@@ -7,7 +7,7 @@
 <div class="max-w-md mx-auto bg-neutral-primary-soft p-6 rounded-base border border-default shadow-sm">
     <h2 class="text-xl font-bold mb-6 text-heading">Registrar Nuevo Alumno</h2>
     
-    <form action="/alumnos" method="post" novalidate>
+    <form action="{{ url_for('alumnos.modificar') }}" method="post" novalidate>
         {{form.csrf_token}}
         <input type = "hidden" name = "csrf_token" value = "{{csrf_token()}}">
         
@@ -37,7 +37,7 @@
         </button>
         
         <div class="text-center mt-4">
-            <a href="{{ url_for('index') }}" class="text-sm text-body hover:text-brand underline">
+            <a href="{{ url_for('alumnos.index') }}" class="text-sm text-body hover:text-brand underline">
                 Volver a la lista
             </a>
         </div>

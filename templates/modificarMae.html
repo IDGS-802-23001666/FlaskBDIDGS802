@@ -7,7 +7,7 @@
 <div class="max-w-md mx-auto bg-neutral-primary-soft p-6 rounded-base border border-default shadow-sm">
     <h2 class="text-xl font-bold mb-6 text-heading">Modificar Maestro</h2>
     
-    <form action="/maestros" method="post" novalidate>
+    <form action="{{ url_for('maestros.modificarMae') }}" method="post" novalidate>
         {{form.csrf_token}}
         <input type = "hidden" name = "csrf_token" value = "{{csrf_token()}}">
         

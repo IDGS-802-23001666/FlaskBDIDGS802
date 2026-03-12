@@ -1,0 +1,66 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+{% import "_macros.html" as macro %}
+
+<div class="relative overflow-x-auto shadow-md sm:rounded-lg border border-gray-200">
+    <div class="p-4 bg-green-600 rounded-t-lg">
+        <a href="{{ url_for('cursos.nuevo_curso') }}" class="flex items-center text-white font-medium w-fit hover:opacity-80 transition-opacity">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+            </svg>
+            Nuevo Curso
+        </a>
+    </div>
+
+    <div class="relative overflow-x-auto bg-white shadow-xs rounded-base border border-gray-200">
+        <table class="w-full text-sm text-left rtl:text-right text-gray-700">
+            <thead class="text-sm text-gray-700 bg-gray-50 border-b border-gray-200">
+                <tr>
+                    <th scope="col" class="px-6 py-3 font-medium">ID</th>
+                    <th scope="col" class="px-6 py-3 font-medium">Curso</th>
+                    <th scope="col" class="px-6 py-3 font-medium">Descripción</th>
+                    <th scope="col" class="px-6 py-3 font-medium">Maestro Asignado</th>
+                    <th scope="col" class="px-6 py-3 font-medium text-center">Alumnos</th>
+                    <th scope="col" class="px-6 py-3 font-medium text-center">Editar</th>
+                    <th scope="col" class="px-6 py-3 font-medium text-center">Detalles</th>
+                    <th scope="col" class="px-6 py-3 font-medium text-center">Eliminar</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for c in curso %}
+                <tr class="bg-white border-b border-gray-200 hover:bg-gray-50 transition-colors">
+                    <td class="px-6 py-4 font-medium text-gray-900">{{ c.id }}</td> 
+                    <td class="px-6 py-4">{{ c.nombre }}</td>
+                    <td class="px-6 py-4">{{ c.descripcion }}</td>
+                    <td class="px-6 py-4">{{ c.maestro.nombre }} {{ c.maestro.apellidos }}</td>
+                    
+                    <td class="px-6 py-4 text-center">
+                        <a href="{{ url_for('cursos.ver_alumnos', id=c.id) }}" class="text-blue-600 hover:text-blue-800 flex justify-center">
+                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                    d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z">
+                                </path>
+                            </svg>
+                        </a>
+                    </td>
+
+                    <td class="px-6 py-4 text-center">
+                        <a href="{{ url_for('cursos.modificar', id=c.id) }}" class="text-blue-600 hover:underline">Editar</a>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <a href="{{ url_for('cursos.detalles', id=c.id) }}" class="text-green-600 hover:underline">Ver</a>
+                    </td>
+                    <td class="px-6 py-4 text-center">
+                        <a href="{{ url_for('cursos.eliminar', id=c.id) }}" class="text-red-600 hover:underline">Eliminar</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock %}

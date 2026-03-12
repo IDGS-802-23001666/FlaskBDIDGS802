@@ -1,0 +1,48 @@
+{% extends "layout.html" %}
+
+{% block container %}
+
+<div class="max-w-md mx-auto bg-neutral-primary-soft p-6 rounded-base border border-default shadow-sm">
+    <div class="flex items-center justify-between mb-6">
+        <h2 class="text-xl font-bold text-heading">Detalles del Curso</h2>
+        <span class="bg-brand-light text-brand text-xs font-bold px-2.5 py-0.5 rounded-full">ID Curso: {{ curso.id }}</span>
+    </div>
+
+    <div class="space-y-6">
+        <div class="relative z-0 w-full group">
+            <label class="block text-sm font-medium text-gray-500 mb-1">Nombre de la Materia</label>
+            <div class="block py-2.5 px-0 w-full text-md text-heading bg-transparent border-0 border-b-2 border-gray-200">
+                {{ curso.nombre }}
+            </div>
+        </div>
+
+        <div class="relative z-0 w-full group">
+            <label class="block text-sm font-medium text-gray-500 mb-1">Descripción</label>
+            <div class="block py-2.5 px-0 w-full text-md text-heading bg-transparent border-0 border-b-2 border-gray-200">
+                {{ curso.descripcion }}
+            </div>
+        </div>
+
+        <div class="relative z-0 w-full group">
+            <label class="block text-sm font-medium text-gray-500 mb-1">Maestro Titular</label>
+            <div class="block py-2.5 px-0 w-full text-md text-heading bg-transparent border-0 border-b-2 border-gray-200">
+                {{ curso.maestro.nombre }} {{ curso.maestro.apellidos }}
+            </div>
+        </div>
+        
+        <div class="relative z-0 w-full group">
+            <label class="block text-sm font-medium text-gray-500 mb-1">Especialidad del Maestro</label>
+            <div class="block py-2.5 px-0 w-full text-md text-heading bg-transparent border-0 border-b-2 border-gray-200">
+                {{ curso.maestro.especialidad }}
+            </div>
+        </div>
+
+        <div class="pt-4 text-center">
+            <a href="{{ url_for('cursos.index') }}" class="text-sm text-brand font-medium hover:underline">
+                Volver a la lista de cursos
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

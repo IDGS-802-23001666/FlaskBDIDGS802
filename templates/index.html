@@ -6,7 +6,7 @@
 
 <div class="relative overflow-x-auto shadow-md sm:rounded-lg border border-gray-200">
     <div class="p-4 bg-green-600 rounded-t-lg">
-        <a href="{{ url_for('alumnos') }}" class="flex items-center text-white font-medium w-fit hover:opacity-80 transition-opacity">
+        <a href="{{ url_for('alumnos.alumnos') }}" class="flex items-center text-white font-medium w-fit hover:opacity-80 transition-opacity">
             <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                     d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z"></path>
@@ -38,13 +38,13 @@
                 <td class="px-6 py-4">{{ alumn.telefono }}</td>
                 
                 <td class="px-6 py-4 text-center">
-                    <a href="modificar?id={{ alumn.id }}" class="text-blue-600 hover:underline">Editar</a>
+                    <a href="{{ url_for('alumnos.modificar', id=alumn.id) }}" class="text-blue-600 hover:underline">Editar</a>      
                 </td>
                 <td class="px-6 py-4 text-center">
-                    <a href="detalles?id={{ alumn.id }}" class="text-green-600 hover:underline">Ver</a>
+                    <a href="{{ url_for('alumnos.detalles', id=alumn.id) }}" class="text-green-600 hover:underline">Ver</a>
                 </td>
                 <td class="px-6 py-4 text-center">
-                    <a href="eliminar?id={{ alumn.id }}" class="text-red-600 hover:underline">Eliminar</a>
+                    <a href="{{ url_for('alumnos.eliminar', id=alumn.id) }}" class="text-red-600 hover:underline">Eliminar</a>
                 </td>
             </tr>
             {% endfor %}
